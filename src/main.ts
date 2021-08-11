@@ -163,9 +163,16 @@ async function run(): Promise<void> {
       projectName: core.getInput('project-name'),
       columnName: core.getInput('column-name'),
       repository: core.getInput('repository'),
-      issueNumber: Number(core.getInput('issue-number'))
+      issueNumber: Number(core.getInput('issue-number')),
+      cardContentUrl: core.getInput('card-content-url')
     }
     core.debug(`Inputs: ${inspect(inputs)}`)
+
+    if (!inputs.issueNumber && inputs.cardContentUrl){
+      const reg = new RegExp(/\d+$/);
+      const result = reg.exec(inputs.cardContentUrl);
+      inputs.issueNumber = Number(result![0]);
+    }
 
     const octokit = github.getOctokit(inputs.token)
 
@@ -190,6 +197,7 @@ async function run(): Promise<void> {
     core.debug(`Column: ${inspect(column)}`)
     if (!column) throw 'No column matching the supplied input found.'
 
+  
     const content = await getContent(
       octokit,
       inputs.repository,
