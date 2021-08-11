@@ -169,9 +169,12 @@ async function run(): Promise<void> {
     core.debug(`Inputs: ${inspect(inputs)}`)
 
     if (!inputs.issueNumber && inputs.cardContentUrl){
+      core.debug(`Using card content url: ${inputs.cardContentUrl}`)
       const reg = new RegExp(/\d+$/);
       const result = reg.exec(inputs.cardContentUrl);
       inputs.issueNumber = Number(result![0]);
+      core.debug(`Updated issue number: ${inputs.issueNumber}`)
+
     }
 
     const octokit = github.getOctokit(inputs.token)
