@@ -168,13 +168,12 @@ async function run(): Promise<void> {
     }
     core.debug(`Inputs: ${inspect(inputs)}`)
 
-    if (!inputs.issueNumber && inputs.cardContentUrl){
+    if (!inputs.issueNumber && inputs.cardContentUrl) {
       core.debug(`Using card content url: ${inputs.cardContentUrl}`)
-      const reg = new RegExp(/\d+$/);
-      const result = reg.exec(inputs.cardContentUrl);
-      inputs.issueNumber = Number(result![0]);
+      const reg = new RegExp(/\d+$/)
+      const result = reg.exec(inputs.cardContentUrl)
+      inputs.issueNumber = Number(result?.[0])
       core.debug(`Updated issue number: ${inputs.issueNumber}`)
-
     }
 
     const octokit = github.getOctokit(inputs.token)
@@ -200,7 +199,6 @@ async function run(): Promise<void> {
     core.debug(`Column: ${inspect(column)}`)
     if (!column) throw 'No column matching the supplied input found.'
 
-  
     const content = await getContent(
       octokit,
       inputs.repository,
