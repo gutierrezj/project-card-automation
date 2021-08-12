@@ -180,9 +180,17 @@ function run() {
                 projectName: core.getInput('project-name'),
                 columnName: core.getInput('column-name'),
                 repository: core.getInput('repository'),
-                issueNumber: Number(core.getInput('issue-number'))
+                issueNumber: Number(core.getInput('issue-number')),
+                cardContentUrl: core.getInput('card-content-url')
             };
             core.debug(`Inputs: ${util_1.inspect(inputs)}`);
+            if (!inputs.issueNumber && inputs.cardContentUrl) {
+                core.debug(`Using card content url: ${inputs.cardContentUrl}`);
+                const reg = new RegExp(/\d+$/);
+                const result = reg.exec(inputs.cardContentUrl);
+                inputs.issueNumber = Number(result === null || result === void 0 ? void 0 : result[0]);
+                core.debug(`Updated issue number: ${inputs.issueNumber}`);
+            }
             const octokit = github.getOctokit(inputs.token);
             const projects = yield getProjects(octokit, inputs.projectLocation);
             core.debug(`Projects: ${util_1.inspect(projects)}`);
