@@ -75,6 +75,13 @@ jobs:
           project-name: '[CI] ${{ matrix.target }}'
           column-name: Test column 2
           issue-number: 1
+          
+      - name: Repo project - move card with content url
+        uses: ./
+        with:
+          project-name: '[CI] ${{ matrix.target }}'
+          column-name: Test column 1
+          card-content-url: 'https://api.github.com/repos/gutierrezj/project-card-automation/issues/1'
 
       - name: Repo project - delete card
         uses: actions/github-script@0.9.0
