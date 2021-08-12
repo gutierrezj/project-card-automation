@@ -28,8 +28,8 @@ inputs:
     default: ${{ github.event.issue.number }}
   card-content-url:
     description: >
-    The content url of the issue to associate with the card.
-    Semi-required. Either `issue-number` OR `card-content-url` must be supplied.
+      The content url of the issue to associate with the card.
+      Semi-required. Either `issue-number` OR `card-content-url` must be supplied.
 outputs:
   card-id:
     description: 'The ID of the card.'
