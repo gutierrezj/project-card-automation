@@ -95,7 +95,9 @@ jobs:
 | `project-name` | (**semi-required**) The name of the project. Either `project-number` OR `project-name` must be supplied. Note that a project's name is not unique. The action will use the first matching project found. | |
 | `column-name` | (**required**) The name of the column to add a card to, or move an existing card to. | |
 | `repository` | The GitHub repository containing the issue or pull request. | `github.repository` (current repository) |
-| `issue-number` | The issue or pull request number to associate with the card. | `github.event.issue.number` |
+| `issue-number` | (**semi-required**) The issue or pull request number to associate with the card. | `github.event.issue.number` |
+|  `card-content-url` |  (**semi-required**)  The content url of the issue to associate with the card. Either `issue-number` OR `card-content-url` must be supplied. |
+      
 
 ### Action outputs
 
